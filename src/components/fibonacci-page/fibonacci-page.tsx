@@ -48,8 +48,8 @@ export const FibonacciPage: React.FC = () => {
                 <Input
                     placeholder="Введите число"
                     type="number"
-                    max={19}
                     min={1}
+                    max={19}
                     maxLength={19}
                     isLimitText={true}
                     value={inputData}

@@ -71,7 +71,11 @@ export const StringComponent: React.FC = () => {
     return (
         <SolutionLayout title="Строка">
             <div className={styles.main}>
-                <Input maxLength={11} isLimitText={true} value={inputData} onChange={onChangeInput}/>
+                <Input maxLength={11}
+                       isLimitText={true}
+                       value={inputData}
+                       onChange={onChangeInput}
+                />
                 <Button
                     text="Развернуть"
                     onClick={onClickButton}
