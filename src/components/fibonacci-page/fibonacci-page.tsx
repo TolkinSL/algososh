@@ -15,11 +15,11 @@ export const FibonacciPage: React.FC = () => {
         return new Promise(resolve => setTimeout(resolve, time));
     }
 
-    const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputData(e.target.value)
     }
 
-    const onClickButton = async () => {
+    const clickButton = async () => {
         setLoader(true);
         const number = Number(inputData);
         const displayArray: number[] = [];
@@ -34,32 +34,30 @@ export const FibonacciPage: React.FC = () => {
 
                 setDisplayData([...displayArray]);
                 setInputData("");
-                
+
                 await delay(500);
             }
         }
-        
+
         setLoader(false);
     }
 
     return (
         <SolutionLayout title="Последовательность Фибоначчи">
             <div className={styles.main}>
-                <Input
-                    placeholder="Введите число"
-                    type="number"
-                    min={1}
-                    max={19}
-                    maxLength={19}
-                    isLimitText={true}
-                    value={inputData}
-                    onChange={onChangeInput}
+                <Input placeholder="Введите число"
+                       type="number"
+                       min={1}
+                       max={19}
+                       maxLength={19}
+                       isLimitText={true}
+                       value={inputData}
+                       onChange={changeInput}
                 />
-                <Button
-                    text="Развернуть"
-                    onClick={onClickButton}
-                    isLoader={loader}
-                    disabled={!inputData || inputData === "" || Number(inputData) > 19 || Number(inputData) < 1}
+                <Button text="Развернуть"
+                        onClick={clickButton}
+                        isLoader={loader}
+                        disabled={!inputData || inputData === "" || Number(inputData) > 19 || Number(inputData) < 1}
                 />
             </div>
 

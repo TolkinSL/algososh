@@ -19,11 +19,11 @@ export const StringComponent: React.FC = () => {
         return new Promise(resolve => setTimeout(resolve, time));
     }
 
-    const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputData(e.target.value);
     }
 
-    function swapArray<T extends string | number>(arr: DisplayArray<T>, first: number, second: number ) {
+    function swapArray<T extends string | number>(arr: DisplayArray<T>, first: number, second: number) {
         const temp = arr[first];
         arr[first] = arr[second];
         arr[second] = temp;
@@ -31,7 +31,7 @@ export const StringComponent: React.FC = () => {
         return arr;
     }
 
-    const onClickButton = async () => {
+    const clickButton = async () => {
         setLoader(true);
 
         let index: number | undefined;
@@ -74,13 +74,12 @@ export const StringComponent: React.FC = () => {
                 <Input maxLength={11}
                        isLimitText={true}
                        value={inputData}
-                       onChange={onChangeInput}
+                       onChange={changeInput}
                 />
-                <Button
-                    text="Развернуть"
-                    onClick={onClickButton}
-                    isLoader={loader}
-                    disabled={!inputData || inputData.length < 1}
+                <Button text="Развернуть"
+                        onClick={clickButton}
+                        isLoader={loader}
+                        disabled={!inputData || inputData.length < 1}
                 />
             </div>
 
