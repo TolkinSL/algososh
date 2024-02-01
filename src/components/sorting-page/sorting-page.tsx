@@ -8,8 +8,8 @@ import {RadioInput} from "../ui/radio-input/radio-input";
 import {Column} from "../ui/column/column";
 import {Direction} from "../../types/direction";
 
-export type DisplayArray<T> = DisplayArrayElement<T> [];
-export type DisplayArrayElement<T> = { value: T; color: ElementStates; };
+type DisplayArray<T> = DisplayArrayElement<T> [];
+type DisplayArrayElement<T> = { value: T; color: ElementStates; };
 
 export const SortingPage: React.FC = () => {
     const [sortType, setSortType] = useState<"select" | "bubble">("select");

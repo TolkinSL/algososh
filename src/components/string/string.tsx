@@ -7,8 +7,8 @@ import {Button} from "../ui/button/button";
 import {Input} from "../ui/input/input";
 import {Circle} from "../ui/circle/circle";
 
-export type DisplayArray<T> = DisplayArrayElement<T> [];
-export type DisplayArrayElement<T> = { value: T; color: ElementStates; };
+type DisplayArray<T> = DisplayArrayElement<T> [];
+type DisplayArrayElement<T> = { value: T; color: ElementStates; };
 
 export const StringComponent: React.FC = () => {
     const [loader, setLoader] = useState(false);
