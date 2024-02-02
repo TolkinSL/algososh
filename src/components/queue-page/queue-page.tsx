@@ -7,7 +7,8 @@ import {Button} from "../ui/button/button";
 import {Input} from "../ui/input/input";
 import {Circle} from "../ui/circle/circle";
 import QueueArr from "./queue";
-import {DELAY_LONG, DELAY_SHORT, delay} from "../../utils/utils";
+import {delay} from "../../utils/utils";
+import {DELAY_LONG, DELAY_SHORT} from "../../constants/delays";
 
 export const QueuePage: React.FC = () => {
     const [queue,] = useState(() => new QueueArr<string>());

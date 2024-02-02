@@ -7,7 +7,8 @@ import {Button} from "../ui/button/button";
 import {Input} from "../ui/input/input";
 import {Circle} from "../ui/circle/circle";
 import StackArr from "./stack";
-import {DELAY_LONG, DELAY_SHORT, delay} from "../../utils/utils";
+import {delay} from "../../utils/utils";
+import {DELAY_LONG, DELAY_SHORT} from "../../constants/delays";
 
 export const StackPage: React.FC = () => {
     const [stack,] = useState(() => new StackArr<string>());

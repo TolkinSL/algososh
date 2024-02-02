@@ -6,7 +6,8 @@ import styles from "./string.module.css";
 import {Button} from "../ui/button/button";
 import {Input} from "../ui/input/input";
 import {Circle} from "../ui/circle/circle";
-import {DELAY_LONG, DELAY_SHORT, delay} from "../../utils/utils";
+import {delay} from "../../utils/utils";
+import {DELAY_LONG, DELAY_SHORT} from "../../constants/delays";
 
 type DisplayArray<T> = DisplayArrayElement<T> [];
 type DisplayArrayElement<T> = { value: T; color: ElementStates; };

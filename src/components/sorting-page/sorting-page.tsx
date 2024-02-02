@@ -7,7 +7,8 @@ import {Button} from "../ui/button/button";
 import {RadioInput} from "../ui/radio-input/radio-input";
 import {Column} from "../ui/column/column";
 import {Direction} from "../../types/direction";
-import {DELAY_LONG, DELAY_SHORT, delay} from "../../utils/utils";
+import {delay} from "../../utils/utils";
+import {DELAY_LONG, DELAY_SHORT} from "../../constants/delays";
 
 type DisplayArray<T> = DisplayArrayElement<T> [];
 type DisplayArrayElement<T> = { value: T; color: ElementStates; };

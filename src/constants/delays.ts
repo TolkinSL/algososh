@@ -1,2 +1,2 @@
-export const DELAY_IN_MS = 1000;
-export const SHORT_DELAY_IN_MS = 500;
+export const DELAY_LONG = 1000;
+export const DELAY_SHORT = 500;
