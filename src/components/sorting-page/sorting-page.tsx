@@ -7,6 +7,7 @@ import {Button} from "../ui/button/button";
 import {RadioInput} from "../ui/radio-input/radio-input";
 import {Column} from "../ui/column/column";
 import {Direction} from "../../types/direction";
+import {DELAY_LONG, DELAY_SHORT, delay} from "../../utils/utils";
 
 type DisplayArray<T> = DisplayArrayElement<T> [];
 type DisplayArrayElement<T> = { value: T; color: ElementStates; };
@@ -17,10 +18,6 @@ export const SortingPage: React.FC = () => {
     const [loader, setLoader] = useState<"Ascending" | "Descending" | null>(null);
     const [firstItem, setFirstItem] = useState<number | null>();
     const [secondItem, setSecondItem] = useState<number | null>();
-
-    function delay(time: number) {
-        return new Promise(resolve => setTimeout(resolve, time));
-    }
 
     function swapArray<T extends string | number>(arr: DisplayArray<T>, first: number, second: number) {
         const temp = arr[first];
@@ -63,7 +60,7 @@ export const SortingPage: React.FC = () => {
         for (let i = 0; i < tempArray.length; i++) {
             setFirstItem(i);
             minIndex = i;
-            await delay(1000);
+            await delay(DELAY_LONG);
 
             for (let j = i + 1; j < tempArray.length; j++) {
                 setSecondItem(j);
@@ -76,7 +73,7 @@ export const SortingPage: React.FC = () => {
                     minIndex = tempArray[minIndex].value > tempArray[j].value ? minIndex : j;
                 }
 
-                await delay(1000);
+                await delay(DELAY_LONG);
             }
 
             if (minIndex === i) {
@@ -87,7 +84,7 @@ export const SortingPage: React.FC = () => {
             }
 
             setDisplayData([...tempArray]);
-            await delay(1000);
+            await delay(DELAY_LONG);
         }
 
         setFirstItem(null);
@@ -113,7 +110,7 @@ export const SortingPage: React.FC = () => {
                     }
                 }
                 setDisplayData([...tempArray]);
-                await delay(1000);
+                await delay(DELAY_LONG);
             }
             tempArray[tempArray.length - 1 - i].color = ElementStates.Modified;
             setDisplayData([...tempArray]);

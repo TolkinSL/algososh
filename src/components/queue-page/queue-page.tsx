@@ -7,6 +7,7 @@ import {Button} from "../ui/button/button";
 import {Input} from "../ui/input/input";
 import {Circle} from "../ui/circle/circle";
 import QueueArr from "./queue";
+import {DELAY_LONG, DELAY_SHORT, delay} from "../../utils/utils";
 
 export const QueuePage: React.FC = () => {
     const [queue,] = useState(() => new QueueArr<string>());
@@ -16,10 +17,6 @@ export const QueuePage: React.FC = () => {
     const [displayData, setDisplayData] = useState<string[]>([]);
     const [loader, setLoader] = useState<"add" | "del" | "clear" | null>(null);
     const [itemShow, setItemShow] = useState<number | null>(null);
-
-    function delay(time: number) {
-        return new Promise(resolve => setTimeout(resolve, time));
-    }
 
     const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputData(e.target.value)
@@ -38,7 +35,7 @@ export const QueuePage: React.FC = () => {
             setTail(queue.getTail);
             setDisplayData([...queue.getItem()]);
             setInputData('');
-            await delay(500);
+            await delay(DELAY_SHORT);
             setItemShow(null);
             setLoader(null);
         }
@@ -47,7 +44,7 @@ export const QueuePage: React.FC = () => {
     const onClickDel = async () => {
         setLoader("del");
         setItemShow(head);
-        await delay(500);
+        await delay(DELAY_SHORT);
         setItemShow(null);
         queue.dequeue();
         setHead(queue.getHead);
@@ -62,7 +59,7 @@ export const QueuePage: React.FC = () => {
         setDisplayData([...queue.getItem()]);
         setHead(queue.getHead);
         setTail(queue.getTail);
-        await delay(500);
+        await delay(DELAY_SHORT);
         setLoader(null);
     }
 

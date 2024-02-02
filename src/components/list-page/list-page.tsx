@@ -8,6 +8,7 @@ import {Button} from "../ui/button/button";
 import {Input} from "../ui/input/input";
 import {Circle} from "../ui/circle/circle";
 import DoubleLinkedList from "./list";
+import {DELAY_LONG, DELAY_SHORT, delay} from "../../utils/utils";
 
 type ChangedElement = {
     index: number | null;
@@ -29,10 +30,6 @@ export const ListPage: React.FC = () => {
     const [elementChanged, setElementChanged] = useState<number | null>(null);
     const [maxIndex, setMaxIndex] = useState<number>(0);
     const [loader, setLoader] = useState<string | null>(null);
-
-    function delay(time: number) {
-        return new Promise(resolve => setTimeout(resolve, time));
-    }
 
     useEffect(() => {
         updateOutput();
@@ -69,12 +66,12 @@ export const ListPage: React.FC = () => {
             setLoader("addHead");
             list.addToStart({value: inputValue, color: ElementStates.Default});
             setElementToAdd({index: 0, value: inputValue, byIndex: false});
-            await delay(500);
+            await delay(DELAY_SHORT);
             updateOutput();
             setElementChanged(0);
             setElementToAdd(changedElementDefaultValue);
             setInputValue("");
-            await delay(500);
+            await delay(DELAY_SHORT);
             setElementChanged(null);
             setLoader(null);
         }
@@ -84,12 +81,12 @@ export const ListPage: React.FC = () => {
             setLoader("addTail");
             list.addToEnd({value: inputValue, color: ElementStates.Default});
             setElementToAdd({index: displayData.length - 1, value: inputValue, byIndex: false});
-            await delay(500);
+            await delay(DELAY_SHORT);
             updateOutput();
             setElementChanged(displayData.length);
             setElementToAdd(changedElementDefaultValue);
             setInputValue("");
-            await delay(500);
+            await delay(DELAY_SHORT);
             setElementChanged(null);
             setLoader(null);
         }
@@ -100,14 +97,14 @@ export const ListPage: React.FC = () => {
             list.addByIndex({value: inputValue, color: ElementStates.Default}, Number(inputIndex));
             for ( let i = 0; i <= Number(inputIndex); i++) {
                 setElementToAdd({index: i, value: inputValue, byIndex: true});
-                await delay(500);
+                await delay(DELAY_SHORT);
             }
             updateOutput();
             setElementChanged(Number(inputIndex));
             setElementToAdd(changedElementDefaultValue);
             setInputValue("");
             setInputIndex("");
-            await delay(500);
+            await delay(DELAY_SHORT);
             setElementChanged(null);
             setLoader(null);
         }
@@ -117,10 +114,10 @@ export const ListPage: React.FC = () => {
         list.delFromStart();
         setElementToDel({index: 0, value: displayData[0].value, byIndex: false});
         setDisplayData([...delArrayElementValue(0, displayData)]);
-        await delay(500);
+        await delay(DELAY_SHORT);
         updateOutput();
         setElementToDel(changedElementDefaultValue);
-        await delay(500);
+        await delay(DELAY_SHORT);
         setLoader(null);
     }
     const delFromTail = async () => {
@@ -128,7 +125,7 @@ export const ListPage: React.FC = () => {
         list.delFromEnd();
         setElementToDel({index: displayData.length -1, value: displayData[displayData.length -1].value, byIndex: false});
         setDisplayData([...delArrayElementValue(displayData.length -1, displayData)]);
-        await delay(500);
+        await delay(DELAY_SHORT);
         updateOutput();
         setElementToDel(changedElementDefaultValue);
         setLoader(null);
@@ -139,13 +136,13 @@ export const ListPage: React.FC = () => {
             list.delByIndex(Number(inputIndex));
             for ( let i = 0; i < Number(inputIndex); i++) {
                 setElementToDel({index: i, value: null, byIndex: true});
-                await delay(500);
+                await delay(DELAY_SHORT);
             }
 
             setElementToDel({index: Number(inputIndex), value: displayData[Number(inputIndex)].value, byIndex: true});
             setDisplayData([...delArrayElementValue(Number(inputIndex), displayData)]);
             setInputIndex("");
-            await delay(500);
+            await delay(DELAY_SHORT);
             updateOutput();
             setElementToDel(changedElementDefaultValue);
             setLoader(null);

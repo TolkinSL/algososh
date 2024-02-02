@@ -6,6 +6,7 @@ import styles from "./string.module.css";
 import {Button} from "../ui/button/button";
 import {Input} from "../ui/input/input";
 import {Circle} from "../ui/circle/circle";
+import {DELAY_LONG, DELAY_SHORT, delay} from "../../utils/utils";
 
 type DisplayArray<T> = DisplayArrayElement<T> [];
 type DisplayArrayElement<T> = { value: T; color: ElementStates; };
@@ -14,10 +15,6 @@ export const StringComponent: React.FC = () => {
     const [loader, setLoader] = useState(false);
     const [inputData, setInputData] = useState<string>('');
     const [displayData, setDisplayData] = useState<DisplayArray<string>>([]);
-
-    function delay(time: number) {
-        return new Promise(resolve => setTimeout(resolve, time));
-    }
 
     const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputData(e.target.value);
@@ -56,10 +53,10 @@ export const StringComponent: React.FC = () => {
             tempArr[i].color = ElementStates.Modified;
             tempArr[swapElement].color = ElementStates.Modified;
 
-            await delay(1000);
+            await delay(DELAY_LONG);
             setDisplayData([...tempArr]);
 
-            await delay(1000);
+            await delay(DELAY_LONG);
             tempArr = swapArray(tempArr, i, swapElement);
             setDisplayData([...tempArr]);
         }

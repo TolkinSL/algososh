@@ -5,15 +5,12 @@ import styles from "./fibonacci-page.module.css";
 import {Button} from "../ui/button/button";
 import {Input} from "../ui/input/input";
 import {Circle} from "../ui/circle/circle";
+import {DELAY_LONG, DELAY_SHORT, delay} from "../../utils/utils";
 
 export const FibonacciPage: React.FC = () => {
     const [loader, setLoader] = useState(false);
     const [inputData, setInputData] = useState<string>('');
     const [displayData, setDisplayData] = useState<number[]>([]);
-
-    function delay(time: number) {
-        return new Promise(resolve => setTimeout(resolve, time));
-    }
 
     const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputData(e.target.value)
@@ -35,7 +32,7 @@ export const FibonacciPage: React.FC = () => {
                 setDisplayData([...displayArray]);
                 setInputData("");
 
-                await delay(500);
+                await delay(DELAY_SHORT);
             }
         }
 

@@ -7,6 +7,7 @@ import {Button} from "../ui/button/button";
 import {Input} from "../ui/input/input";
 import {Circle} from "../ui/circle/circle";
 import StackArr from "./stack";
+import {DELAY_LONG, DELAY_SHORT, delay} from "../../utils/utils";
 
 export const StackPage: React.FC = () => {
     const [stack,] = useState(() => new StackArr<string>());
@@ -14,10 +15,6 @@ export const StackPage: React.FC = () => {
     const [displayData, setDisplayData] = useState<string[]>([]);
     const [loader, setLoader] = useState<"add" | "del" | "clear" | null>(null);
     const [itemShow, setItemShow] = useState<number | null>(null);
-
-    function delay(time: number) {
-        return new Promise(resolve => setTimeout(resolve, time));
-    }
 
     const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputData(e.target.value)
@@ -29,7 +26,7 @@ export const StackPage: React.FC = () => {
             stack.push(inputData);
             setDisplayData([...stack.getItem()]);
             setInputData('');
-            await delay(500);
+            await delay(DELAY_SHORT);
             setItemShow(null);
             setLoader(null);
         }
@@ -38,7 +35,7 @@ export const StackPage: React.FC = () => {
         if (displayData.length > 0) {
             setLoader("del");
             setItemShow(displayData.length - 1);
-            await delay(500);
+            await delay(DELAY_SHORT);
             setItemShow(null);
             stack.pop();
             setDisplayData([...stack.getItem()]);
@@ -49,7 +46,7 @@ export const StackPage: React.FC = () => {
         setLoader("clear");
         stack.clear();
         setDisplayData([]);
-        await delay(500);
+        await delay(DELAY_SHORT);
         setLoader(null);
     }
 
