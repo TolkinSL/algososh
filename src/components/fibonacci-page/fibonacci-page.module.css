@@ -1,0 +1,21 @@
+.main {
+    margin: 0 auto;
+    padding-bottom: 48px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    gap: 12px;
+    width: 567px;
+}
+
+.review {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 16px;
+    row-gap: 48px;
+    width: 100%;
+}
