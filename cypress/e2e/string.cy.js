@@ -1,11 +1,12 @@
 import {greenCircle, purpleCircle} from "./utils";
+import {PARTIAL_CIRCLE_SMALL, PARTIAL_CIRCLE, PREFIX_CIRCLE, PREFIX_INPUT} from "./utils";
 
 describe('Проверка страницы Строка', function () {
     beforeEach(() => {
         cy.visit("/");
         cy.get('[data-test="testRecursion"]').click();
         cy.contains("Строка");
-        cy.get('[class^=input_input__]').first().as('input');
+        cy.get(PREFIX_INPUT).first().as('input');
         cy.contains('Развернуть').first().as('button');
     });
     it('Кнопка добавления недоступна', function () {
@@ -35,17 +36,17 @@ describe('Проверка страницы Строка', function () {
         ];
         cy.get('@input').should('be.empty').type(step1);
         cy.get('@button').click();
-        cy.get('[class^=circle_circle__]').each(($el, index) => {
+        cy.get(PREFIX_CIRCLE).each(($el, index) => {
             cy.get($el)
                 .should("have.css", "border-color", step1color[index])
                 .contains(step1[index])
         });
-        cy.get('[class^=circle_circle__]').each(($el, index) => {
+        cy.get(PREFIX_CIRCLE).each(($el, index) => {
             cy.get($el)
                 .should("have.css", "border-color", step2color[index])
                 .contains(step2[index])
         });
-        cy.get('[class^=circle_circle__]').each(($el, index) => {
+        cy.get(PREFIX_CIRCLE).each(($el, index) => {
             cy.get($el)
                 .should("have.css", "border-color", step3color[index])
                 .contains(step3[index])

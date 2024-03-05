@@ -1,12 +1,13 @@
 import { blueCircle, greenCircle, purpleCircle } from "./utils";
+import {PARTIAL_CIRCLE_SMALL, PARTIAL_CIRCLE, PREFIX_CIRCLE, PREFIX_INPUT} from "./utils";
 
 describe('Проверка страницы Связный список', function () {
   beforeEach(() => {
     cy.visit("/");
     cy.get('[data-test="testList"]').click();
     cy.contains("Связный список");
-    cy.get('[class^=input_input__]').first().as('value');
-    cy.get('[class^=input_input__]').last().as('index');
+    cy.get(PREFIX_INPUT).first().as('value');
+    cy.get(PREFIX_INPUT).last().as('index');
     cy.contains('Добавить в head').first().as('addHead');
     cy.contains('Добавить в tail').first().as('addTail');
     cy.contains('Удалить из head').first().as('delHead');
@@ -31,7 +32,7 @@ describe('Проверка страницы Связный список', functi
       .should('be.disabled');
   });
   it('тестирование отрисовки дефолтного списка', function () {
-    cy.get('[class*=circle_circle__]').each( ($el) => {
+    cy.get(PARTIAL_CIRCLE).each( ($el) => {
       cy.get($el).should("have.css", "border-color", blueCircle).contains(/\S{1,4}/);
     });
   });
@@ -39,15 +40,15 @@ describe('Проверка страницы Связный список', functi
     const inputValue = 10;
     cy.get('@value').should('be.empty').type(inputValue);
     cy.get('@addHead').click();
-    cy.get('[class*=circle_small__]')
+    cy.get(PARTIAL_CIRCLE_SMALL)
       .first()
       .should("have.css", "border-color", purpleCircle)
       .contains(inputValue)
-    cy.get('[class*=circle_circle__]')
+    cy.get(PARTIAL_CIRCLE)
       .first()
       .should("have.css", "border-color", greenCircle)
       .contains(inputValue)
-    cy.get('[class*=circle_circle__]')
+    cy.get(PARTIAL_CIRCLE)
       .first()
       .should("have.css", "border-color", blueCircle)
       .contains(inputValue)
@@ -59,15 +60,15 @@ describe('Проверка страницы Связный список', functi
     const inputValue = 10;
     cy.get('@value').should('be.empty').type(inputValue);
     cy.get('@addTail').click();
-    cy.get('[class*=circle_small__]')
+    cy.get(PARTIAL_CIRCLE_SMALL)
       .first()
       .should("have.css", "border-color", purpleCircle)
       .contains(inputValue)
-    cy.get('[class*=circle_circle__]')
+    cy.get(PARTIAL_CIRCLE)
       .last()
       .should("have.css", "border-color", greenCircle)
       .contains(inputValue)
-    cy.get('[class*=circle_circle__]')
+    cy.get(PARTIAL_CIRCLE)
       .last()
       .should("have.css", "border-color", blueCircle)
       .contains(inputValue)
@@ -82,37 +83,37 @@ describe('Проверка страницы Связный список', functi
     cy.get('@index').should('be.empty').type(inputIndex);
     cy.get('@addByIndex').click();
     for (let i = 0; i <= inputIndex; i++) {
-      cy.get('[class*=circle_small__]')
+      cy.get(PARTIAL_CIRCLE_SMALL)
         .first()
         .should("have.css", "border-color", purpleCircle)
         .contains(inputValue)
       cy.wait(500);
     };
-    cy.get('[class^=circle_circle__]')
+    cy.get(PREFIX_CIRCLE)
       .eq(inputIndex)
       .should("have.css", "border-color", greenCircle)
       .contains(inputValue);
-    cy.get('[class^=circle_circle__]')
+    cy.get(PREFIX_CIRCLE)
       .eq(inputIndex)
       .should("have.css", "border-color", blueCircle)
       .contains(inputValue);
   });
   it('тестирование удаление элемента из head', function () {
     cy.get('@delHead').click();
-    cy.get('[class^=circle_circle__]').its('length').then( (size) => {
-      cy.get('[class*=circle_small__]')
+    cy.get(PREFIX_CIRCLE).its('length').then( (size) => {
+      cy.get(PARTIAL_CIRCLE_SMALL)
         .first()
         .should("have.css", "border-color", purpleCircle);
-      cy.get('[class^=circle_circle__]').its('length').should('eq', size - 2);
+      cy.get(PREFIX_CIRCLE).its('length').should('eq', size - 2);
     });
   });
   it('тестирование удаление элемента из tail', function () {
     cy.get('@delTail').click();
-    cy.get('[class^=circle_circle__]').its('length').then( (size) => {
-      cy.get('[class*=circle_small__]')
+    cy.get(PREFIX_CIRCLE).its('length').then( (size) => {
+      cy.get(PARTIAL_CIRCLE_SMALL)
         .first()
         .should("have.css", "border-color", purpleCircle);
-      cy.get('[class^=circle_circle__]').its('length').should('eq', size - 2);
+      cy.get(PREFIX_CIRCLE).its('length').should('eq', size - 2);
     });
   });
   it('тестирование удаление элемента по индексу', function () {
@@ -120,18 +121,18 @@ describe('Проверка страницы Связный список', functi
     cy.get('@index').should('be.empty').type(inputIndex);
     cy.get('@delByIndex').click();
     for (let i = 0; i < inputIndex; i++) {
-      cy.get('[class*=circle_circle__]')
+      cy.get(PARTIAL_CIRCLE)
         .eq(i)
         .should("have.css", "border-color", purpleCircle);
       if (i < inputIndex -1) {
         cy.wait(500);
       }
     };
-    cy.get('[class^=circle_circle__]').its('length').then( (size) => {
-      cy.get('[class*=circle_small__]')
+    cy.get(PREFIX_CIRCLE).its('length').then( (size) => {
+      cy.get(PARTIAL_CIRCLE_SMALL)
         .first()
         .should("have.css", "border-color", purpleCircle);
-      cy.get('[class^=circle_circle__]').its('length').should('eq', size - 2);
+      cy.get(PREFIX_CIRCLE).its('length').should('eq', size - 2);
     });
   });
 
