@@ -37,7 +37,7 @@ export const MainPage: React.FC<MainPageProps> = ({ extraClass = "" }) => {
         <Link className={styles.link} to="/queue" data-test="testQueue">
           <div className={`${styles.card} ${styles.queue}`} />
         </Link>
-        <Link className={styles.link} to="/list">
+        <Link className={styles.link} to="/list" data-test="testList">
           <div className={`${styles.card} ${styles.list}`} />
         </Link>
       </div>
