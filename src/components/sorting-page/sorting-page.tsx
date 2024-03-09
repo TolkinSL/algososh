@@ -9,9 +9,11 @@ import {Column} from "../ui/column/column";
 import {Direction} from "../../types/direction";
 import {delay} from "../../utils/utils";
 import {DELAY_LONG, DELAY_SHORT} from "../../constants/delays";
+import {sortSelect, sortBubble} from "../../utils/utils";
 
 type DisplayArray<T> = DisplayArrayElement<T> [];
 type DisplayArrayElement<T> = { value: T; color: ElementStates; };
+
 
 export const SortingPage: React.FC = () => {
     const [sortType, setSortType] = useState<"select" | "bubble">("select");
@@ -43,83 +45,20 @@ export const SortingPage: React.FC = () => {
         return resultArray;
     }
 
-    const handleAscending = () => {
+    const handleAscending = async () => {
         setLoader("Ascending");
-        sortType === "select" ? sortSelect(Direction.Ascending) : sortBubble(Direction.Ascending);
+        sortType === "select" ? await sortSelect(Direction.Ascending, displayData, setDisplayData, setFirstItem, setSecondItem)
+            : await sortBubble(Direction.Ascending, displayData, setDisplayData, setFirstItem, setSecondItem);
+        setLoader(null);
     }
-    const handleDescending = () => {
+    const handleDescending = async () => {
         setLoader("Descending");
-        sortType === "select" ? sortSelect(Direction.Descending) : sortBubble(Direction.Descending);
+        sortType === "select" ? await sortSelect(Direction.Descending, displayData, setDisplayData, setFirstItem, setSecondItem)
+            : await sortBubble(Direction.Descending, displayData, setDisplayData, setFirstItem, setSecondItem);
+        setLoader(null);
     }
     const handleCreateArray = () => {
         setDisplayData(randomArr());
-    }
-    const sortSelect = async (type: Direction) => {
-        let tempArray = displayData;
-        let minIndex: number;
-
-        for (let i = 0; i < tempArray.length; i++) {
-            setFirstItem(i);
-            minIndex = i;
-            await delay(DELAY_LONG);
-
-            for (let j = i + 1; j < tempArray.length; j++) {
-                setSecondItem(j);
-
-                if (type === Direction.Ascending) {
-                    minIndex = tempArray[minIndex].value < tempArray[j].value ? minIndex : j;
-                }
-
-                if (type === Direction.Descending) {
-                    minIndex = tempArray[minIndex].value > tempArray[j].value ? minIndex : j;
-                }
-
-                await delay(DELAY_LONG);
-            }
-
-            if (minIndex === i) {
-                tempArray[i].color = ElementStates.Modified;
-            } else {
-                tempArray = swapArray(tempArray, i, minIndex);
-                tempArray[i].color = ElementStates.Modified;
-            }
-
-            setDisplayData([...tempArray]);
-            await delay(DELAY_LONG);
-        }
-
-        setFirstItem(null);
-        setSecondItem(null);
-        setLoader(null);
-    }
-
-    const sortBubble = async (type: Direction) => {
-        let tempArray = displayData;
-
-        for (let i = 0; i < tempArray.length; i++) {
-            for (let j = 0; j < tempArray.length - 1 - i; j++) {
-                setFirstItem(j);
-                setSecondItem(j + 1)
-                if (type === Direction.Ascending) {
-                    if (tempArray[j].value > tempArray[j + 1].value) {
-                        tempArray = swapArray(tempArray, j, j + 1);
-                    }
-                }
-                if (type === Direction.Descending) {
-                    if (tempArray[j].value < tempArray[j + 1].value) {
-                        tempArray = swapArray(tempArray, j, j + 1);
-                    }
-                }
-                setDisplayData([...tempArray]);
-                await delay(DELAY_LONG);
-            }
-            tempArray[tempArray.length - 1 - i].color = ElementStates.Modified;
-            setDisplayData([...tempArray]);
-        }
-
-        setFirstItem(null);
-        setSecondItem(null);
-        setLoader(null);
     }
 
     useEffect(() => {

@@ -9,8 +9,10 @@ import {Circle} from "../ui/circle/circle";
 import {delay} from "../../utils/utils";
 import {DELAY_LONG, DELAY_SHORT} from "../../constants/delays";
 
-type DisplayArray<T> = DisplayArrayElement<T> [];
-type DisplayArrayElement<T> = { value: T; color: ElementStates; };
+import type {DisplayArray} from "../../types/display-array";
+// type DisplayArray<T> = DisplayArrayElement<T> [];
+// type DisplayArrayElement<T> = { value: T; color: ElementStates; };
+import {reverse} from "../../utils/utils";
 
 export const StringComponent: React.FC = () => {
     const [loader, setLoader] = useState(false);
@@ -31,37 +33,7 @@ export const StringComponent: React.FC = () => {
 
     const clickButton = async () => {
         setLoader(true);
-
-        let index: number | undefined;
-        let swapElement: number;
-        let tempArr: DisplayArray<string> = [];
-
-        if (inputData.length % 2) {
-            index = inputData.length / 2 - 0.5
-        }
-
-        for (let i = 0; i < inputData.length; i++) {
-            tempArr[i] = {
-                value: inputData[i],
-                color: index && i === index ? ElementStates.Default : ElementStates.Changing
-            }
-        }
-
-        setDisplayData(tempArr);
-
-        for (let i = 0; i < inputData.length / 2; i++) {
-            swapElement = inputData.length - i - 1;
-            tempArr[i].color = ElementStates.Modified;
-            tempArr[swapElement].color = ElementStates.Modified;
-
-            await delay(DELAY_LONG);
-            setDisplayData([...tempArr]);
-
-            await delay(DELAY_LONG);
-            tempArr = swapArray(tempArr, i, swapElement);
-            setDisplayData([...tempArr]);
-        }
-
+        await reverse(inputData, setDisplayData);
         setLoader(false);
         setInputData("");
     }
